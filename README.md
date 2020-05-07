@@ -6,6 +6,13 @@
 3. From command line run mvn clean install -U -DskipTests
 5. Make sure you can run the DemoTest
 
+#### Technologies
+1. Java
+2. Rest Assured
+3. TestNG
+4. Any other technologies you see fit.
+5. Please do not use a BDD framework.
+
 #### Expectations
 We will be evaluating
 1. Quality of test cases
