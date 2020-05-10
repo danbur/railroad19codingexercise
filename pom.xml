@@ -70,6 +70,12 @@
             <artifactId>hamcrest-all</artifactId>
             <version>1.3</version>
         </dependency>
+        <!-- Shazamcrest -->
+        <dependency>
+            <groupId>com.shazam</groupId>
+            <artifactId>shazamcrest</artifactId>
+            <version>0.11</version>
+        </dependency>
         <!--Maven-->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
