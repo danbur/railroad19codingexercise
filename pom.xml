@@ -36,6 +36,7 @@
 
     <properties>
         <org.springframework.version>5.2.6.RELEASE</org.springframework.version>
+        <org.apapche.logging.log4j.version>2.13.2</org.apapche.logging.log4j.version>
         <testng.thread.count>1</testng.thread.count>
     </properties>
 
@@ -87,11 +88,21 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-        <!--log4j-->
+        <!-- Log4j 2/SLF4J -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${org.apapche.logging.log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${org.apapche.logging.log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${org.apapche.logging.log4j.version}</version>
         </dependency>
         <!--  JSON -->
         <dependency>
