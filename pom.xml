@@ -34,10 +34,12 @@
         </plugins>
     </build>
 
+    <properties>
+        <org.springframework.version>5.2.6.RELEASE</org.springframework.version>
+        <testng.thread.count>1</testng.thread.count>
+    </properties>
 
     <dependencies>
-
-       
 
         <!--TestNG-->
         <dependency>
@@ -78,7 +80,13 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M3</version>
         </dependency>
-
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
         <!--log4j-->
         <dependency>
             <groupId>log4j</groupId>
@@ -96,6 +104,17 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.11</version>
+        </dependency>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
     </dependencies>
 
