@@ -70,7 +70,7 @@ does not specify the behavior.)
     * A JSON Array instead of a single object
     * A single string/number instead of an object
 
-(I would not include test cases like this last one, if I knew more about the implementation of the service – for example that is was deserializing the response into POJOs with a widely used and well-tested library such as Jackson.  Then this might not be necessary.)
+(I would not include test cases like this last one, if I knew more about the implementation of the service – for example that it was deserializing the response into POJOs with a widely used and well-tested library such as Jackson.  Then this might not be necessary.)
 
 *DELETE /toppings/{id}*
 
@@ -129,7 +129,7 @@ If it was possible to start with a clean environment, I would try to GET with ze
 * Create an order a single pizza that has multiple toppings and verify that the status code is 201
 * Create an order with multiple pizzas and verify that the status code is 201 (include all the various types – zero toppings, one topping, and multiple toppings)
 
-For all of these test cases, also retrieve the order from the GET/orders/{id} and make sure the order is returned
+For all of these test cases, also retrieve the order from the GET/orders/{id} and make the response matches the order sent in the POST request
 
 **Negative tests:**
 

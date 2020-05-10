@@ -13,8 +13,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -37,6 +37,7 @@
     <properties>
         <org.springframework.version>5.2.6.RELEASE</org.springframework.version>
         <org.apapche.logging.log4j.version>2.13.2</org.apapche.logging.log4j.version>
+        <testng.thread.count>1</testng.thread.count>
     </properties>
 
     <dependencies>
@@ -51,7 +52,7 @@
 		<dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.2.0</version>
+            <version>3.3.0</version>
         </dependency>
 		<dependency>
             <groupId>io.rest-assured</groupId>
