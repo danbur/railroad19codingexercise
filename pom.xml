@@ -37,7 +37,6 @@
     <properties>
         <org.springframework.version>5.2.6.RELEASE</org.springframework.version>
         <org.apapche.logging.log4j.version>2.13.2</org.apapche.logging.log4j.version>
-        <testng.thread.count>1</testng.thread.count>
     </properties>
 
     <dependencies>
