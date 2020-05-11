@@ -7,6 +7,7 @@ import com.sample.test.demo.data.model.Pizza;
 import com.sample.test.demo.utils.BaseTest;
 import com.sample.test.demo.utils.TestConstants;
 import com.sample.test.demo.validation.OrderValidators;
+import io.restassured.mapper.TypeRef;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
@@ -16,6 +17,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.sample.test.demo.utils.TestConstants.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 
 @Slf4j
 public class OrdersTest extends BaseTest {
@@ -27,7 +31,22 @@ public class OrdersTest extends BaseTest {
 
     @Test
     public void getAllOrders() {
-        orderClient.getAllOrders().then().assertThat().statusCode(200);
+        log.info("Verifying get all orders works correctly");
+        orderClient.getAllOrders().then().assertThat().statusCode(200).extract().as(new TypeRef<List<Order>>() {});
+    }
+
+    @Test
+    public void getOrderById() {
+        // This test fails, because the GET order by ID response is a single item, while the API specification states
+        // that it should be an array containing that item
+        log.info("Retrieving the first order in the list by ID and validating the response");
+        Order firstOrder = orderClient.getAllOrders().then().assertThat().statusCode(200).extract()
+                .as(new TypeRef<List<Order>>() {}).get(0);
+        List<Order> getOrderByIdResponse = orderClient.getOrderById(firstOrder.getId()).then().statusCode(200)
+                .extract().body().as(new TypeRef<>() {});
+        assertThat("Get order response should contain exactly one item", getOrderByIdResponse, hasSize(1));
+        assertThat("Get order by ID response should contain the first order in the list",
+                getOrderByIdResponse.get(0), equalTo(firstOrder));
     }
 
     @Test
