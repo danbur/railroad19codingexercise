@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.hasSize;
  * Validation methods related to orders
  */
 @Component
-public class OrderValidators {
+public class OrderResponseValidators {
     /**
      * Verify the Get order by ID response matches and order that was previously created
      * @param expectedOrder The previously created order

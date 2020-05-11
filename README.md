@@ -128,6 +128,7 @@ If it was possible to start with a clean environment, I would try to GET with ze
 * Create an order a single pizza that has one topping and verify that the status code is 201
 * Create an order a single pizza that has multiple toppings and verify that the status code is 201
 * Create an order with multiple pizzas and verify that the status code is 201 (include all the various types – zero toppings, one topping, and multiple toppings)
+* Create an order with a duplicate of the same topping on a single pizza (I am assuming this is allowed and lets you double up on a topping)
 
 For all of these test cases, also retrieve the order from the GET/orders/{id} and make the response matches the order sent in the POST request
 

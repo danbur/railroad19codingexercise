@@ -6,7 +6,7 @@ import com.sample.test.demo.data.model.Order;
 import com.sample.test.demo.data.model.Pizza;
 import com.sample.test.demo.utils.BaseTest;
 import com.sample.test.demo.utils.TestConstants;
-import com.sample.test.demo.validation.OrderValidators;
+import com.sample.test.demo.validation.OrderResponseValidators;
 import io.restassured.mapper.TypeRef;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class OrdersTest extends BaseTest {
     @Inject
     private OrderClient orderClient;
     @Inject
-    private OrderValidators orderValidators;
+    private OrderResponseValidators orderResponseValidators;
 
     @Test
     public void getAllOrders() {
@@ -79,7 +79,7 @@ public class OrdersTest extends BaseTest {
         CreateOrderResponse createOrderResponse = orderClient.createNewOrder(order).then().assertThat().statusCode(201)
                 .extract().body().as(CreateOrderResponse.class);
         Response getOrderByIdResponse = orderClient.getOrderById(createOrderResponse.getId());
-        orderValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
+        orderResponseValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class OrdersTest extends BaseTest {
         CreateOrderResponse createOrderResponse = orderClient.createNewOrder(order).then().assertThat().statusCode(201)
                 .extract().body().as(CreateOrderResponse.class);
         Response getOrderByIdResponse = orderClient.getOrderById(createOrderResponse.getId());
-        orderValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
+        orderResponseValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
     }
 
     @Test
@@ -108,6 +108,18 @@ public class OrdersTest extends BaseTest {
         CreateOrderResponse createOrderResponse = orderClient.createNewOrder(order).then().assertThat().statusCode(201)
                 .extract().body().as(CreateOrderResponse.class);
         Response getOrderByIdResponse = orderClient.getOrderById(createOrderResponse.getId());
-        orderValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
+        orderResponseValidators.verifyGetOrderByIdResponseMatchesOrderPreviouslyCreated(getOrderByIdResponse, order);
+    }
+
+    @Test
+    void createOrderWithPizzaNotSpecifiedResultsInError() {
+        // This test fails, as the order is accepted by the endpoint, despite having no pizza specified
+        log.info("Verify that attempting to create an order without a pizza type specified results in an error");
+        Pizza pizza1 = Pizza.builder().pizza(SMALL_SIX_SLICE_ONE_TOPPING).toppings(List.of(SALAMI)).build();
+        Pizza pizza2 = Pizza.builder().pizza(null).toppings(List.of(PEPPERONI, MUSHROOMS)).build();
+        Pizza pizza3 = Pizza.builder().pizza(TestConstants.LARGE_TEN_SLICE_NO_TOPPINGS)
+                .toppings(Collections.emptyList()).build();
+        Order order = Order.builder().items(List.of(pizza1, pizza2, pizza3)).build();
+        orderClient.createNewOrder(order).then().assertThat().statusCode(408);
     }
 }
