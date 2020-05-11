@@ -10,4 +10,5 @@ public class TestConstants {
     public static final String SALAMI = "Salami";
     public static final String MUSHROOMS = "Mushrooms";
     public static final String PEPPERONI = "Classic Pepperoni";
+    public static final String FIRST_ORDER_ID = "1";
 }

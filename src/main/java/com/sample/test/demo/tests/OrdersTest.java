@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.sample.test.demo.utils.TestConstants.*;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -31,19 +32,39 @@ public class OrdersTest extends BaseTest {
 
     @Test
     public void getAllOrders() {
-        log.info("Verifying get all orders works correctly");
-        orderClient.getAllOrders().then().assertThat().statusCode(200).extract().as(new TypeRef<List<Order>>() {});
+        log.info("Get all orders and verify the response");
+        orderClient.getAllOrders().then().assertThat().statusCode(200).extract().as(new TypeRef<List<Order>>() {
+        });
+    }
+
+    @Test
+    public void getAllOrdersContainsPreviouslyCreatedOrder() {
+        // Test test assumes that we know the ID of an order already created before the tests run
+        // This test fails, because the GET order by ID response is a single item, while the API specification states
+        // that it should be an array containing that item
+        log.info("Verify the get all orders response contains a previously created order");
+        Order firstOrder = orderClient.getOrderById(TestConstants.FIRST_ORDER_ID).then().statusCode(200)
+                .extract().body().as(new TypeRef<List<Order>>() {
+                }).get(0);
+        List<Order> allOrders = orderClient.getAllOrders().then().assertThat().statusCode(200).extract()
+                .as(new TypeRef<List<Order>>() {
+                });
+        assertThat("The get all orders response should contain the previously created order", allOrders,
+                hasItem(firstOrder));
     }
 
     @Test
     public void getOrderById() {
+        // This test assumes some orders have already been created before the tests run
         // This test fails, because the GET order by ID response is a single item, while the API specification states
         // that it should be an array containing that item
         log.info("Retrieving the first order in the list by ID and validating the response");
         Order firstOrder = orderClient.getAllOrders().then().assertThat().statusCode(200).extract()
-                .as(new TypeRef<List<Order>>() {}).get(0);
+                .as(new TypeRef<List<Order>>() {
+                }).get(0);
         List<Order> getOrderByIdResponse = orderClient.getOrderById(firstOrder.getId()).then().statusCode(200)
-                .extract().body().as(new TypeRef<>() {});
+                .extract().body().as(new TypeRef<>() {
+                });
         assertThat("Get order response should contain exactly one item", getOrderByIdResponse, hasSize(1));
         assertThat("Get order by ID response should contain the first order in the list",
                 getOrderByIdResponse.get(0), equalTo(firstOrder));
