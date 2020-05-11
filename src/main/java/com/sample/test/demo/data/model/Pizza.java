@@ -15,7 +15,7 @@ import java.util.List;
 @JsonInclude(Include.NON_EMPTY)
 public class Pizza {
 
-    private String item;
+    private Integer item;
     private String pizza;
     private List<String> toppings;
 

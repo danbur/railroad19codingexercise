@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "#",
+  "type": "array",
+  "title": "Orders list",
+  "description": "Schema for a list of orders",
+  "default": [],
+  "examples": [
+    [
+      {
+        "items": [
+          {
+            "item": 1,
+            "pizza": "Medium 8 Slices - 2 toppings",
+            "toppings": [
+              "Mushrooms",
+              "Extra cheese"
+            ]
+          },
+          {
+            "pizza": "Large 10 Slices - 2 toppings",
+            "toppings": [
+              "Italian Ham",
+              "Salami"
+            ],
+            "item": 2
+          }
+        ],
+        "id": "1"
+      },
+      {
+        "items": [
+          {
+            "pizza": "Small 6 Slices - no toppings",
+            "toppings": [],
+            "item": 1
+          }
+        ],
+        "id": "2"
+      }
+    ]
+  ],
+  "additionalItems": false,
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "title": "Order",
+    "description": "Schema for an individual order",
+    "default": {},
+    "examples": [
+      {
+        "items": [
+          {
+            "item": 1,
+            "pizza": "Medium 8 Slices - 2 toppings",
+            "toppings": [
+              "Mushrooms",
+              "Extra cheese"
+            ]
+          },
+          {
+            "pizza": "Large 10 Slices - 2 toppings",
+            "toppings": [
+              "Italian Ham",
+              "Salami"
+            ],
+            "item": 2
+          }
+        ],
+        "id": "1"
+      }
+    ],
+    "required": [
+      "id",
+      "items"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$id": "#/items/properties/id",
+        "type": "string",
+        "title": "The id schema",
+        "description": "ID of an order",
+        "default": "",
+        "examples": [
+          "1"
+        ]
+      },
+      "items": {
+        "$id": "#/items/properties/items",
+        "type": "array",
+        "title": "Items list",
+        "description": "Schema for the items (pizzas) list in an order",
+        "default": [],
+        "examples": [
+          [
+            {
+              "pizza": "Medium 8 Slices - 2 toppings",
+              "toppings": [
+                "Mushrooms",
+                "Extra cheese"
+              ],
+              "item": 1
+            },
+            {
+              "item": 2,
+              "pizza": "Large 10 Slices - 2 toppings",
+              "toppings": [
+                "Italian Ham",
+                "Salami"
+              ]
+            }
+          ]
+        ],
+        "additionalItems": false,
+        "items": {
+          "$id": "#/items/properties/items/items",
+          "type": "object",
+          "title": "Item",
+          "description": "Schema for an individual item (pizza)",
+          "default": {},
+          "examples": [
+            {
+              "pizza": "Medium 8 Slices - 2 toppings",
+              "toppings": [
+                "Mushrooms",
+                "Extra cheese"
+              ],
+              "item": 1
+            }
+          ],
+          "required": [
+            "item",
+            "pizza",
+            "toppings"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "item": {
+              "$id": "#/items/properties/items/items/properties/item",
+              "type": "integer",
+              "title": "The item schema",
+              "description": "Item number",
+              "examples": [
+                1
+              ]
+            },
+            "pizza": {
+              "$id": "#/items/properties/items/items/properties/pizza",
+              "type": "string",
+              "title": "The pizza schema",
+              "description": "Name of the pizza type",
+              "examples": [
+                "Medium 8 Slices - 2 toppings"
+              ]
+            },
+            "toppings": {
+              "$id": "#/items/properties/items/items/properties/toppings",
+              "type": "array",
+              "title": "The toppings list schema",
+              "description": "List of toppings",
+              "default": [],
+              "examples": [
+                [
+                  "Mushrooms",
+                  "Extra cheese"
+                ]
+              ],
+              "additionalItems": false,
+              "items": {
+                "$id": "#/items/properties/items/items/properties/toppings/items",
+                "type": "string",
+                "title": "Individual topping schema",
+                "description": "An individual topping name",
+                "default": "",
+                "examples": [
+                  "Mushrooms",
+                  "Extra cheese"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

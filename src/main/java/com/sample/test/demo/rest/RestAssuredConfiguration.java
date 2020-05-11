@@ -1,7 +1,11 @@
 package com.sample.test.demo.rest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.test.demo.config.ServiceConfiguration;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.ObjectMapperConfig;
+import io.restassured.config.RestAssuredConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +21,19 @@ public class RestAssuredConfiguration {
     ServiceConfiguration serviceConfiguration;
 
     @Bean
-    public RequestSpecBuilder getRequestSpecBuilder() {
-        return new RequestSpecBuilder().setBaseUri(serviceConfiguration.getBaseUri());
+    ObjectMapper getObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
+        // Disable fail on unknown properties, since we have specific tests to validate the JSON schema
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper;
+    }
+
+    @Bean
+    public RequestSpecBuilder getRequestSpecBuilder(ObjectMapper objectMapper) {
+        ObjectMapperConfig objectMapperConfig = new ObjectMapperConfig().jackson2ObjectMapperFactory((cls, charset) ->
+                objectMapper);
+        RestAssuredConfig restAssuredConfig = RestAssuredConfig.newConfig().objectMapperConfig(objectMapperConfig);
+        return new RequestSpecBuilder().setBaseUri(serviceConfiguration.getBaseUri())
+                .setConfig(restAssuredConfig);
     }
 }

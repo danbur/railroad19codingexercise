@@ -11,4 +11,7 @@ public class TestConstants {
     public static final String MUSHROOMS = "Mushrooms";
     public static final String PEPPERONI = "Classic Pepperoni";
     public static final String FIRST_ORDER_ID = "1";
+    public static final String GET_ALL_ORDERS_SCHEMA_FILE = "schema/orders-list.json";
+    public static final String GET_ORDER_BY_ID_SCHEMA_FILE = "schema/orders-list.json";
+    public static final String CREATE_ORDER_RESPONSE_SCHEMA_FILE = "schema/create-order-response.json";
 }
