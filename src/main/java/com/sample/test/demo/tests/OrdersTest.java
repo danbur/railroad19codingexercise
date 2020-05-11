@@ -32,7 +32,7 @@ public class OrdersTest extends BaseTest {
 
     @Test
     public void getAllOrders() {
-        log.info("Get all orders and verify the response");
+        log.info("Get all orders and verify the response code/format");
         orderClient.getAllOrders().then().assertThat().statusCode(200).extract().as(new TypeRef<List<Order>>() {
         });
     }
@@ -47,7 +47,7 @@ public class OrdersTest extends BaseTest {
                 .extract().body().as(new TypeRef<List<Order>>() {
                 }).get(0);
         List<Order> allOrders = orderClient.getAllOrders().then().assertThat().statusCode(200).extract()
-                .as(new TypeRef<List<Order>>() {
+                .as(new TypeRef<>() {
                 });
         assertThat("The get all orders response should contain the previously created order", allOrders,
                 hasItem(firstOrder));

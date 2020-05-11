@@ -152,7 +152,7 @@ an object with some widely used library.)
 
 ###### Soak tests:
 
-* Verify that you can create, retrieve, and delete an topping 100 times in a row (or some higher number)
+* Verify that you can create, retrieve, and delete a topping 100 times in a row (or some higher number)
 * Verify you can create 100 orders in a row (or some higher number) and all of them appear in the list, when you call the GET orders endpoint.
 
 I would also do performance and load testing, but that is beyond the scope of this project (I would use different tools for that.)
